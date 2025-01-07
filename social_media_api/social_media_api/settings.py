@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-import dj_database_url
+#import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 ALLOWED_HOSTS = ['esraahassanein.pythonanywhere.com']
@@ -84,8 +84,8 @@ DATABASES = {
 }
 
 # If on Heroku, use PostgreSQL
-if 'DATABASE_URL' in os.environ:
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+#if 'DATABASE_URL' in os.environ:
+#    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation settings
 AUTH_PASSWORD_VALIDATORS = [
