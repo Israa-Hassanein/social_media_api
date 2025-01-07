@@ -3,12 +3,12 @@ import os
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+ALLOWED_HOSTS = ['esraahassanein.pythonanywhere.com']
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-j!97i6p2xz_$9we4pk%av)i(+3skitx750wjvwqh7@b6b^=uki'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']  # Set to * for now; adjust as per deployment
 
