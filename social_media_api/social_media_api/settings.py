@@ -26,6 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ALLOWED_HOSTS = ['localhost','socialmediaapi-production-f067.up.railway.app','127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://socialmediaapi-production-f067.up.railway.app']
 INTERNAL_IPS = ('127.0.0.1', 'localhost:8000')
+PORT = int(os.environ.get("PORT", 8080)) 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if ENVIRONMENT =="development":
