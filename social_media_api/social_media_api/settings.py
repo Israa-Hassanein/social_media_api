@@ -1,14 +1,36 @@
 from pathlib import Path
 import os
+import environ
+from decouple import config
+import dj_database_url
+from decouple import Config, Csv
+from decouple import config
 
+LOGIN_REDIRECT_URL = '/'  # Redirect to home after successful login
+
+
+# Initialize the environment variable reader
+env = environ.Env()
+# Read the environment variables from the .env file
+env.read_env()
+
+ENVIRONMENT = env('ENVIRONMENT', default='production')
+# Load the SECRET_KEY from the environment
+SECRET_KEY = env('SECRET_KEY')
+
+DATABASES = {
+    'default': dj_database_url.config(default=config('DATABASE_URL'))
+}
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-ALLOWED_HOSTS = ['esraahassanein.pythonanywhere.com']
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j!97i6p2xz_$9we4pk%av)i(+3skitx750wjvwqh7@b6b^=uki'
+ALLOWED_HOSTS = ['*']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+if ENVIRONMENT =="development":
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*']  # Set to * for now; adjust as per deployment
 
@@ -60,7 +82,7 @@ ROOT_URLCONF = 'social_media_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,16 +97,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'social_media_db',
-        'USER': 'social_media_user',
-        'PASSWORD': 'adminpassword',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'social_media_db',
+#        'USER': 'social_media_user',
+#        'PASSWORD': 'adminpassword',
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+#}
 
 # Password validation settings
 AUTH_PASSWORD_VALIDATORS = [

@@ -12,12 +12,14 @@ from django.db.models import Q
 from django.contrib.auth.models import User  # Import User model
 from django.utils.dateparse import parse_date
 from rest_framework import status
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponse
 
 
 # Home view
 def home(request):
-    return JsonResponse({"message": "Welcome to the Social Media API!"})
+    return render(request, 'home.html')
 
 
 # Custom authentication token class
@@ -36,16 +38,21 @@ class CustomAuthToken(ObtainAuthToken):
         })
 
 
-# Login view
+# Remove the LoginView class you have here:
 class LoginView(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
         user = authenticate(request, username=username, password=password)
+        
         if user:
             login(request, user)
-            return JsonResponse({'message': 'Login successful', 'username': username})
-        return JsonResponse({'error': 'Invalid credentials'}, status=400)
+            # Return a welcome message with the username
+            return JsonResponse({'message': f'Welcome, {username}!', 'username': username})
+        
+        # If authentication fails, return an error message
+        return JsonResponse({'error': 'Invalid username or password'}, status=400)
+
 
 
 class PostViewSet(viewsets.ModelViewSet):
