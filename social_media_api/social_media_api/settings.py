@@ -19,12 +19,24 @@ ENVIRONMENT = env('ENVIRONMENT', default='production')
 SECRET_KEY = env('SECRET_KEY')
 
 DATABASES = {
-    'default': dj_database_url.config(default=config('DATABASE_URL'))
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='postgres://localhost'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-ALLOWED_HOSTS = ['esraahassanein.pythonanywhere.com','localhost','socialmediaapi-production-f067.up.railway.app','127.0.0.1']
+ALLOWED_HOSTS = [
+    'esraahassanein.pythonanywhere.com',
+    'localhost',
+    'socialmediaapi-production-f067.up.railway.app',
+    '127.0.0.1'
+]
+
 CSRF_TRUSTED_ORIGINS = ['https://socialmediaapi-production-f067.up.railway.app']
+
 INTERNAL_IPS = ('127.0.0.1', 'localhost:8000')
 PORT = int(os.environ.get("PORT", 8080)) 
 
@@ -34,7 +46,6 @@ if ENVIRONMENT =="development":
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['*']  # Set to * for now; adjust as per deployment
 
 # Static and media files configuration
 STATIC_URL = '/static/'
